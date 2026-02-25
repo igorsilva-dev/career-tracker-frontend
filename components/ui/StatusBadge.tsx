@@ -12,6 +12,14 @@ const statusClassMap: Record<ApplicationStatus, string> = {
   OFFER: "chip chip-offer",
 };
 
+const statusLabelMap: Record<ApplicationStatus, string> = {
+  SAVED: "Saved",
+  APPLIED: "Applied",
+  INTERVIEWING: "Interviewing",
+  REJECTED: "Rejected",
+  OFFER: "Offer",
+};
+
 export function StatusBadge({ status }: StatusBadgeProps) {
-  return <span className={statusClassMap[status]}>{status}</span>;
+  return <span className={statusClassMap[status]}>{statusLabelMap[status]}</span>;
 }

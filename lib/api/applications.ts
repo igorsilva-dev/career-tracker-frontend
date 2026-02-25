@@ -5,6 +5,10 @@ export function listApplications(): Promise<Application[]> {
   return apiFetch<Application[]>("/api/v1/applications");
 }
 
+export function getApplication(applicationId: number): Promise<Application> {
+  return apiFetch<Application>(`/api/v1/applications/${applicationId}`);
+}
+
 export function getMetrics(): Promise<DashboardMetrics> {
   return apiFetch<DashboardMetrics>("/api/v1/applications/dashboard/metrics");
 }

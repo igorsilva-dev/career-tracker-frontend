@@ -4,6 +4,8 @@ import { CVGenerateResponse, MatchAnalysisResponse } from "@/lib/types";
 export function analyzeMatch(payload: {
   cv_text: string;
   job_description: string;
+  application_id?: number;
+  force_refresh?: boolean;
 }): Promise<MatchAnalysisResponse> {
   return apiFetch<MatchAnalysisResponse>("/api/v1/analysis/match", {
     method: "POST",

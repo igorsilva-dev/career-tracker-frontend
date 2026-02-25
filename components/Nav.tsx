@@ -12,6 +12,16 @@ interface NavProps {
 
 const links = [
   {
+    href: "/profile",
+    label: "Profile",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M12 12a4 4 0 100-8 4 4 0 000 8z" />
+        <path d="M4 21a8 8 0 0116 0" />
+      </svg>
+    ),
+  },
+  {
     href: "/",
     label: "Dashboard",
     icon: (
@@ -26,16 +36,6 @@ const links = [
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M4 6h16M4 12h16M4 18h10" />
-      </svg>
-    ),
-  },
-  {
-    href: "/profile",
-    label: "Profile",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M12 12a4 4 0 100-8 4 4 0 000 8z" />
-        <path d="M4 21a8 8 0 0116 0" />
       </svg>
     ),
   },
