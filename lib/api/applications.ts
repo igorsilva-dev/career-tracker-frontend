@@ -1,5 +1,5 @@
 import { apiFetch } from "@/lib/api/client";
-import { Application, DashboardMetrics } from "@/lib/types";
+import { Application, ApplicationArtifacts, ApplicationStatus, DashboardMetrics } from "@/lib/types";
 
 export function listApplications(): Promise<Application[]> {
   return apiFetch<Application[]>("/api/v1/applications");
@@ -25,4 +25,25 @@ export function createApplication(payload: {
     method: "POST",
     body: JSON.stringify(payload),
   });
+}
+
+export function updateApplication(
+  applicationId: number,
+  payload: Partial<{
+    company_name: string;
+    role_title: string;
+    job_description: string;
+    date_applied: string;
+    status: ApplicationStatus;
+    notes: string | null;
+  }>,
+): Promise<Application> {
+  return apiFetch<Application>(`/api/v1/applications/${applicationId}`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function getApplicationArtifacts(applicationId: number): Promise<ApplicationArtifacts> {
+  return apiFetch<ApplicationArtifacts>(`/api/v1/applications/${applicationId}/artifacts`);
 }

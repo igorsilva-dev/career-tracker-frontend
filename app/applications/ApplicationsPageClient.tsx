@@ -8,15 +8,6 @@ import { StatusBadge } from "@/components/ui/StatusBadge";
 import { getMetrics, listApplications } from "@/lib/api/applications";
 import { Application, ApplicationStatus, DashboardMetrics } from "@/lib/types";
 
-function inferMatchFromNotes(notes: string | null): number | null {
-  if (!notes) return null;
-  const match = notes.match(/(?:match|score)\s*[:=]\s*(\d{1,3})\s*%?/i);
-  if (!match) return null;
-  const value = Number(match[1]);
-  if (Number.isNaN(value)) return null;
-  return Math.max(0, Math.min(100, value));
-}
-
 function matchClass(value: number | null): string {
   if (value == null) return "match-value neutral";
   if (value >= 80) return "match-value high";
@@ -377,11 +368,11 @@ export default function ApplicationsPageClient() {
             </thead>
             <tbody>
               {filteredItems.map((item) => {
-                const match = inferMatchFromNotes(item.notes);
+                const match = item.latest_match_percentage ?? null;
                 return (
                   <tr key={item.id}>
-                    <td><strong>{item.company_name}</strong></td>
-                    <td>{item.role_title}</td>
+                    <td><Link href={`/applications/${item.id}`}><strong>{item.company_name}</strong></Link></td>
+                    <td><Link href={`/applications/${item.id}`}>{item.role_title}</Link></td>
                     <td><StatusBadge status={item.status} /></td>
                     <td>{item.date_applied}</td>
                     <td><span className={matchClass(match)}>{match == null ? "—" : `${match}%`}</span></td>

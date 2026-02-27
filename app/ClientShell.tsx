@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import { Nav } from "@/components/Nav";
+import { ToastProvider } from "@/components/ui/ToastProvider";
 
 function titleFromSegment(segment: string): string {
   return segment
@@ -40,7 +41,7 @@ export default function ClientShell({ children }: { children: React.ReactNode })
   }, []);
 
   return (
-    <>
+    <ToastProvider>
       {mobileOpen ? <button className="sidebar-overlay" aria-label="Close menu" onClick={() => setMobileOpen(false)} /> : null}
 
       <div className="app-shell">
@@ -91,6 +92,6 @@ export default function ClientShell({ children }: { children: React.ReactNode })
           </main>
         </div>
       </div>
-    </>
+    </ToastProvider>
   );
 }

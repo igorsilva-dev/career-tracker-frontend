@@ -8,6 +8,7 @@ export interface Application {
   date_applied: string;
   status: ApplicationStatus;
   notes: string | null;
+  latest_match_percentage?: number | null;
   created_at: string;
   updated_at: string;
 }
@@ -18,6 +19,32 @@ export interface DashboardMetrics {
   rejections: number;
   offers: number;
   interview_rate: number;
+}
+
+export interface AnalysisHistoryItem {
+  id: number;
+  application_id: number;
+  overall_match_percentage: number;
+  seniority_alignment: string;
+  matching_skills_count: number;
+  gaps_count: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CVVersionHistoryItem {
+  id: number;
+  application_id: number;
+  analysis_id: number | null;
+  template_id: "minimal" | "structured" | "executive";
+  generated_pdf_filename: string;
+  overall_match_percentage: number;
+  created_at: string;
+}
+
+export interface ApplicationArtifacts {
+  analyses: AnalysisHistoryItem[];
+  cv_versions: CVVersionHistoryItem[];
 }
 
 export interface MatchAnalysisResponse {
@@ -48,8 +75,22 @@ export interface CVGenerateResponse {
   reordered_skills: string[];
   rewritten_experience_bullets: Array<{ original: string; rewritten: string }>;
   deprioritized_content: string[];
-  template_id: string;
+  template_id: "minimal" | "structured" | "executive";
   generated_pdf_filename: string;
+}
+
+export interface CVStoredVersion {
+  id: number;
+  application_id: number;
+  analysis_id: number | null;
+  template_id: "minimal" | "structured" | "executive";
+  professional_summary: string;
+  reordered_skills: string[];
+  rewritten_experience_bullets: Array<{ original: string; rewritten: string }>;
+  deprioritized_content: string[];
+  generated_pdf_filename: string;
+  analysis: MatchAnalysisResponse;
+  created_at: string;
 }
 
 
@@ -60,7 +101,21 @@ export interface CandidateProfile {
   professional_summary: string | null;
   skills: string[];
   experiences: string[];
+  experience_entries: Array<{
+    company_name: string;
+    start_date: string | null;
+    end_date: string | null;
+    is_current: boolean;
+    roles: string[];
+    highlights: string[];
+  }>;
   certifications: string[];
+  certification_entries: Array<{
+    title: string;
+    provider: string | null;
+    year: string | null;
+    kind: string;
+  }>;
   education: string[];
   goals: string[];
   normalized_cv_text: string;
